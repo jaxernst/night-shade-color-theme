@@ -1149,7 +1149,7 @@
     {
       "scope": ["entity.name.type.module", "entity.name.type", "storage.type"],
       "settings": {
-        "foreground": "#9BB3AA"
+        "foreground": "#A2BEB4"
       }
     },
     {
