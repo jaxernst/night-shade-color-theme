@@ -506,6 +506,7 @@
     //"problemsWarningIcon.foreground": "#88bbff",
     //"profileBadge.background": "#4d4d4d",
     //"profileBadge.foreground": "#ffffff",
+    //"profiles.sashBorder": "#ffdd3332",
     //"quickInput.background": "#333333",
     //"quickInput.foreground": "#8e8e8e",
     //"quickInputList.focusBackground": "#111111",
@@ -609,6 +610,8 @@
     //"tab.dragAndDropBorder": "#ffffff",
     //"tab.inactiveModifiedBorder": "#3399cc80",
     //"tab.lastPinnedBorder": "#585858",
+    //"tab.selectedBackground": "#222222",
+    //"tab.selectedForeground": "#ffffff",
     //"tab.unfocusedActiveBackground": "#222222",
     //"tab.unfocusedActiveModifiedBorder": "#3399cc80",
     //"tab.unfocusedInactiveBackground": "#111111",
@@ -690,7 +693,9 @@
     //"diffEditorOverview.removedForeground": null,
     //"dropdown.listBackground": null,
     //"editor.findMatchBorder": null,
+    //"editor.findMatchForeground": null,
     //"editor.findMatchHighlightBorder": null,
+    //"editor.findMatchHighlightForeground": null,
     //"editor.findRangeHighlightBorder": null,
     //"editor.rangeHighlightBorder": null,
     //"editor.selectionForeground": null,
@@ -763,6 +768,7 @@
     //"tab.hoverBackground": null,
     //"tab.hoverBorder": null,
     //"tab.hoverForeground": null,
+    //"tab.selectedBorderTop": null,
     //"tab.unfocusedActiveBorderTop": null,
     //"tab.unfocusedHoverBackground": null,
     //"tab.unfocusedHoverBorder": null,
@@ -1088,15 +1094,13 @@
         "storage.modifier",
         "keyword.operator.expression.void",
         "keyword.operator.expression.typeof",
-        "punctuation.definition.template-expression.begin",
-        "punctuation.definition.template-expression.end",
         "keyword.control.import",
         "keyword.control.from",
         "keyword.control.flow",
         "keyword.control.as"
       ],
       "settings": {
-        "foreground": "#9D8DC6"
+        "foreground": "#A599D0"
       }
     },
     {
@@ -1117,6 +1121,8 @@
     },
     {
       "scope": [
+        "punctuation.definition.template-expression",
+        "punctuation.definition.template-expression",
         "keyword.operator",
         "support.type.primitive",
         "support.type.builtin",
@@ -1129,27 +1135,25 @@
     },
     {
       "scope": [
-        "keyword.control.module.elixir",
         "keyword.other.special-method",
         "keyword.operator",
         "entity.name.tag",
         "storage.type.function.arrow"
       ],
       "settings": {
-        "foreground": "#7DA3C1",
+        "foreground": "#7DA1C1",
         "fontStyle": "bold"
       }
     },
     {
-      "scope": [],
+      "scope": [
+        "storage.type",
+        "entity.name.type.module",
+        "entity.name.type",
+        "keyword.control.module.elixir"
+      ],
       "settings": {
-        "foreground": "#B694C8"
-      }
-    },
-    {
-      "scope": ["entity.name.type.module", "entity.name.type", "storage.type"],
-      "settings": {
-        "foreground": "#A2BEB4"
+        "foreground": "#88BBFF"
       }
     },
     {
@@ -1159,7 +1163,13 @@
         "entity.name.type.module"
       ],
       "settings": {
-        "foreground": "#78BEA6"
+        "foreground": "#78BEA1"
+      }
+    },
+    {
+      "scope": ["punctuation.definition.string.template"],
+      "settings": {
+        "foreground": "#88CC44"
       }
     },
     {
