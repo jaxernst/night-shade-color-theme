@@ -1,114 +1,67 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-public class Book
+public class WeatherForecast
 {
-    public int BookId { get; set; }
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public bool IsAvailable { get; set; } = true;
+    public DateTime Date { get; set; }
+    public int TemperatureC { get; set; }
+    public string Summary { get; set; }
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
 
-public class Patron
+public class WeatherService
 {
-    public int PatronId { get; set; }
-    public string Name { get; set; }
-    public List<Book> BorrowedBooks { get; set; } = new List<Book>();
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+
+    public async Task<IEnumerable<WeatherForecast>> GetForecastAsync(int days)
+    {
+        var rng = new Random();
+        await Task.Delay(1000); // Simulate API delay
+
+        return Enumerable.Range(1, days).Select(index => new WeatherForecast
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = rng.Next(-20, 55),
+            Summary = Summaries[rng.Next(Summaries.Length)]
+        }).ToArray();
+    }
 }
 
-public class Library
+public class WeatherAnalyzer
 {
-    private List<Book> books = new List<Book>();
-    private List<Patron> patrons = new List<Patron>();
-
-    public void AddBook(Book book)
+    public static (double avgTemp, string mostCommonSummary) AnalyzeForecast(IEnumerable<WeatherForecast> forecasts)
     {
-        books.Add(book);
-    }
+        var avgTemp = forecasts.Average(f => f.TemperatureC);
+        var mostCommonSummary = forecasts
+            .GroupBy(f => f.Summary)
+            .OrderByDescending(g => g.Count())
+            .First()
+            .Key;
 
-    public void RegisterPatron(Patron patron)
-    {
-        patrons.Add(patron);
-    }
-
-    public void BorrowBook(int bookId, int patronId)
-    {
-        var book = books.FirstOrDefault(b => b.BookId == bookId);
-        var patron = patrons.FirstOrDefault(p => p.PatronId == patronId);
-
-        if (book == null || patron == null)
-        {
-            throw new ArgumentException("Book or Patron not found.");
-        }
-
-        if (!book.IsAvailable)
-        {
-            throw new InvalidOperationException("Book is currently unavailable.");
-        }
-
-        book.IsAvailable = false;
-        patron.BorrowedBooks.Add(book);
-    }
-
-    public void ReturnBook(int bookId, int patronId)
-    {
-        var book = books.FirstOrDefault(b => b.BookId == bookId);
-        var patron = patrons.FirstOrDefault(p => p.PatronId == patronId);
-
-        if (book == null || patron == null)
-        {
-            throw new ArgumentException("Book or Patron not found.");
-        }
-
-        if (!patron.BorrowedBooks.Remove(book))
-        {
-            throw new InvalidOperationException("This book was not borrowed by this patron.");
-        }
-
-        book.IsAvailable = true;
-    }
-
-    public void PrintAvailableBooks()
-    {
-        var availableBooks = books.Where(b => b.IsAvailable).ToList();
-        if (availableBooks.Any())
-        {
-            Console.WriteLine("Available Books:");
-            foreach (var book in availableBooks)
-            {
-                Console.WriteLine($"ID: {book.BookId}, Title: {book.Title}, Author: {book.Author}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("No available books.");
-        }
+        return (avgTemp, mostCommonSummary);
     }
 }
 
 class Program
 {
-    static void Main()
+    static async Task Main()
     {
-        var library = new Library();
-        library.AddBook(new Book { BookId = 1, Title = "1984", Author = "George Orwell" });
-        library.AddBook(new Book { BookId = 2, Title = "Brave New World", Author = "Aldous Huxley" });
+        var weatherService = new WeatherService();
+        var forecasts = await weatherService.GetForecastAsync(5);
 
-        var patron = new Patron { PatronId = 1, Name = "John Doe" };
-        library.RegisterPatron(patron);
-
-        try
+        Console.WriteLine("5-Day Weather Forecast:");
+        foreach (var forecast in forecasts)
         {
-            library.BorrowBook(1, 1);
-            library.PrintAvailableBooks();
-            library.ReturnBook(1, 1);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
+            Console.WriteLine($"Date: {forecast.Date:d}, Temp: {forecast.TemperatureC}°C ({forecast.TemperatureF}°F), Summary: {forecast.Summary}");
         }
 
-        library.PrintAvailableBooks();
+        var (avgTemp, mostCommonSummary) = WeatherAnalyzer.AnalyzeForecast(forecasts);
+        Console.WriteLine($"\nAverage Temperature: {avgTemp:F1}°C");
+        Console.WriteLine($"Most Common Weather: {mostCommonSummary}");
     }
 }
