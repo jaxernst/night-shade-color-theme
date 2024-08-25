@@ -1,0 +1,21 @@
+{
+  "name": "night-shade",
+  "displayName": "night-shade",
+  "description": "A simple and elegant dark theme that's a bit fun to look at",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Night Shade Color Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/night-shade.json"
+      }
+    ]
+  }
+}

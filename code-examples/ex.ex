@@ -2,13 +2,11 @@ defmodule TextProcessor do
 
   def clean_text(text) do
     text
-    |> String.replace(~r/[^\w\s]/, "")  # Remove punctuation
-    |> String.downcase()                # Convert to lowercase
+    |> String.replace(~r/[^\w\s]/, "")
+    |> String.downcase()
   end
 
-  @doc """
-  Processes text to extract frequent word counts.
-  """
+  @doc """ Processes text to extract frequent word counts. """
   def process_text(text, min_frequency) do
     text
     |> clean_text()
