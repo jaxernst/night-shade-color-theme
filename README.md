@@ -1,4 +1,4 @@
-# Midnight Noir
+# Night Shade Theme for VS Code
 
 For midnight coding sessions.
 
