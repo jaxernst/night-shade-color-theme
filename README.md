@@ -1,6 +1,11 @@
 # Night Shade Theme for VS Code
 
-A dark theme for late night coding sessions, inspired by Gruber Minimal with additional vibrant highlights.
+A minimal dark theme for late night coding sessions, inspired by Gruber Minimal with an emphasis on muted neon highlights.
+
+![Screenshot 1](code-examples/screenshots/screenshot1.png)
+![Screenshot 2](code-examples/screenshots/screenshot2.png)
+![Screenshot 3](code-examples/screenshots/screenshot3.png)
+![Screenshot 4](code-examples/screenshots/screenshot4.png)
 
 ## Features
 
@@ -16,17 +21,6 @@ A dark theme for late night coding sessions, inspired by Gruber Minimal with add
 3. Search for "Night Shade Theme"
 4. Click Install
 5. Select "Night Shade Color Theme" from the Color Theme picker (Ctrl+K Ctrl+T or Cmd+K Cmd+T on macOS)
-
-## Theme Demos
-
-![Screenshot 1](code-examples/screenshots/screenshot1.png)
-![Screenshot 2](code-examples/screenshots/screenshot2.png)
-![Screenshot 3](code-examples/screenshots/screenshot3.png)
-![Screenshot 4](code-examples/screenshots/screenshot4.png)
-
-## Language Examples
-
-[Placeholders for code snippets in various languages]
 
 ## Customization
 

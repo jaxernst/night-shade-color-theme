@@ -2,9 +2,9 @@
   "name": "night-shade",
   "displayName": "night-shade",
   "publisher": "jaxernst",
-  "icon": "icon.png",
+  "icon": "logo.png",
   "description": "A simple and elegant dark theme that's a bit fun to look ac",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/jaxernst/night-shade-color-theme.git"
