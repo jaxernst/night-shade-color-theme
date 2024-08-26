@@ -2,9 +2,9 @@
 
 A minimal dark theme for late night coding sessions, inspired by Gruber Minimal with an emphasis on muted neon highlights.
 
-![Screenshot 1](code-examples/screenshots/screenshot1.png)
+<img src="code-examples/screenshots/screenshot1.png" width="600">
 
-![Screenshot 2](code-examples/screenshots/screenshot2.png) ![Screenshot 3](code-examples/screenshots/screenshot3.png)
+<img src="code-examples/screenshots/screenshot2.png" width="300"> <img src="code-examples/screenshots/screenshot3.png" width="300">
 
 ## Features
 
