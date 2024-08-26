@@ -1,8 +1,14 @@
 {
   "name": "night-shade",
   "displayName": "night-shade",
-  "description": "A simple and elegant dark theme that's a bit fun to look at",
+  "publisher": "jaxernst",
+  "icon": "icon.png",
+  "description": "A simple and elegant dark theme that's a bit fun to look ac",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaxernst/night-shade-color-theme.git"
+  },
   "engines": {
     "vscode": "^1.92.0"
   },
