@@ -2,14 +2,12 @@
 
 A minimal dark theme for late night coding sessions, inspired by Gruber Minimal with an emphasis on muted neon highlights.
 
-<div style="display: flex; flex-wrap: row; flex-gap: 8px;">
-  <img src="code-examples/screenshots/screenshot1.png" alt="Screenshot 1" style="width: 40%;">
-  <img src="code-examples/screenshots/screenshot2.png" alt="Screenshot 2" style="width: 40%;">
-</div>
+<img src="code-examples/screenshots/screenshot1.png" alt="Screenshot 1" style="width: 40%">
 
-<div style="display: flex; flex-wrap: row; flex-gap: 8px;">
-  <img src="code-examples/screenshots/screenshot3.png" alt="Screenshot 3"  style="width: 40%;">
-  <img src="code-examples/screenshots/screenshot4.png" alt="Screenshot 4"  style="width: 40%;">
+<div style="display: flex; justify-content: center;">
+  <img src="code-examples/screenshots/screenshot2.png" alt="Screenshot 2" style="width: 40%;">
+  <img src="code-examples/screenshots/screenshot3.png" alt="Screenshot 3" style="width: 40%;">
+  </div>
 </div>
 
 ## Features
