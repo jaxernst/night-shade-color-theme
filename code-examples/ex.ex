@@ -1,5 +1,4 @@
 defmodule TextProcessor do
-
   def clean_text(text) do
     text
     |> String.replace(~r/[^\w\s]/, "")

@@ -1,96 +1,158 @@
 use std::collections::HashMap;
-use std::io;
+use std::fs::{File, OpenOptions};
+use std::io::{self, BufRead, BufReader, Write};
+use std::path::Path;
 
-enum Command {
-    Add { title: String, author: String },
-    Remove(String),
-    Get(String),
-    List,
-    Quit,
+#[derive(Debug)]
+struct Task {
+    id: usize,
+    description: String,
+    completed: bool,
 }
 
-impl Command {
-    fn from_input(input: &str) -> Option<Command> {
-        let parts: Vec<&str> = input.trim().splitn(3, ' ').collect();
-        match parts[0] {
-            "add" => Some(Command::Add {
-                title: parts[1].to_string(),
-                author: parts[2].to_string(),
-            }),
-            "remove" => Some(Command::Remove(parts[1].to_string())),
-            "get" => Some(Command::Get(parts[1].to_string())),
-            "list" => Some(Command::List),
-            "quit" => Some(Command::Quit),
-            _ => None,
+struct TodoList {
+    tasks: HashMap<usize, Task>,
+    next_id: usize,
+}
+
+impl TodoList {
+    fn new() -> TodoList {
+        TodoList {
+            tasks: HashMap::new(),
+            next_id: 1,
         }
     }
-}
 
-struct Library {
-    books: HashMap<String, String>,
-}
-
-impl Library {
-    fn new() -> Library {
-        Library { books: HashMap::new() }
+    fn add_task(&mut self, description: String) {
+        let task = Task {
+            id: self.next_id,
+            description,
+            completed: false,
+        };
+        self.tasks.insert(self.next_id, task);
+        self.next_id += 1;
     }
 
-    fn add_book(&mut self, title: String, author: String) {
-        self.books.insert(title, author);
-    }
-
-    fn remove_book(&mut self, title: &str) -> Result<(), String> {
-        self.books.remove(title).map_or_else(
-            || Err("Book not found.".to_string()),
-            |_| Ok(()),
-        )
-    }
-
-    fn get_book(&self, title: &str) -> Option<&String> {
-        self.books.get(title)
-    }
-
-    fn list_books(&self) {
-        for (title, author) in &self.books {
-            println!("{} by {}", title, author);
+    fn complete_task(&mut self, id: usize) -> Result<(), String> {
+        match self.tasks.get_mut(&id) {
+            Some(task) => {
+                task.completed = true;
+                Ok(())
+            }
+            None => Err(format!("Task with id {} not found", id)),
         }
     }
+
+    fn list_tasks(&self) {
+        for task in self.tasks.values() {
+            println!(
+                "{}: {} [{}]",
+                task.id,
+                task.description,
+                if task.completed { "✓" } else { " " }
+            );
+        }
+    }
+
+    fn save_to_file(&self, filename: &str) -> io::Result<()> {
+        let mut file = OpenOptions::new()
+            .write(true)
+            .create(true)
+            .truncate(true)
+            .open(filename)?;
+
+        for task in self.tasks.values() {
+            writeln!(
+                file,
+                "{},{},{}",
+                task.id, task.description, task.completed
+            )?;
+        }
+
+        Ok(())
+    }
+
+    fn load_from_file(&mut self, filename: &str) -> io::Result<()> {
+        let file = File::open(filename)?;
+        let reader = BufReader::new(file);
+
+        self.tasks.clear();
+        self.next_id = 1;
+
+        for line in reader.lines() {
+            let line = line?;
+            let parts: Vec<&str> = line.split(',').collect();
+            if parts.len() == 3 {
+                let id: usize = parts[0].parse().unwrap_or(0);
+                let description = parts[1].to_string();
+                let completed: bool = parts[2].parse().unwrap_or(false);
+
+                let task = Task {
+                    id,
+                    description,
+                    completed,
+                };
+
+                self.tasks.insert(id, task);
+                self.next_id = self.next_id.max(id + 1);
+            }
+        }
+
+        Ok(())
+    }
 }
 
-fn main() {
-    let mut library = Library::new();
+fn main() -> io::Result<()> {
+    let mut todo_list = TodoList::new();
+    let filename = "todo_list.txt";
+
+    if Path::new(filename).exists() {
+        todo_list.load_from_file(filename)?;
+        println!("Loaded existing todo list.");
+    }
+
     loop {
-        println!("Enter command:");
-        let mut input = String::new();
-        if io::stdin().read_line(&mut input).is_err() {
-            println!("Error reading input");
-            continue;
-        }
+        println!("\nTodo List Manager");
+        println!("1. Add task");
+        println!("2. Complete task");
+        println!("3. List tasks");
+        println!("4. Save and quit");
 
-        match Command::from_input(&input) {
-            Some(Command::Add { title, author }) => {
-                library.add_book(title, author);
-                println!("Book added.");
-            },
-            Some(Command::Remove(title)) => match library.remove_book(&title) {
-                Ok(_) => println!("Book removed."),
-                Err(e) => println!("{}", e),
-            },
-            Some(Command::Get(title)) => {
-                if let Some(author) = library.get_book(&title) {
-                    println!("{} by {}", title, author);
+        let mut choice = String::new();
+        io::stdin().read_line(&mut choice)?;
+
+        match choice.trim() {
+            "1" => {
+                println!("Enter task description:");
+                let mut description = String::new();
+                io::stdin().read_line(&mut description)?;
+                todo_list.add_task(description.trim().to_string());
+                println!("Task added.");
+            }
+            "2" => {
+                println!("Enter task ID to complete:");
+                let mut id_str = String::new();
+                io::stdin().read_line(&mut id_str)?;
+                if let Ok(id) = id_str.trim().parse() {
+                    match todo_list.complete_task(id) {
+                        Ok(_) => println!("Task completed."),
+                        Err(e) => println!("{}", e),
+                    }
                 } else {
-                    println!("Book not found.");
+                    println!("Invalid task ID.");
                 }
-            },
-            Some(Command::List) => {
-                library.list_books();
-            },
-            Some(Command::Quit) => {
-                println!("Exiting...");
+            }
+            "3" => {
+                todo_list.list_tasks();
+            }
+            "4" => {
+                todo_list.save_to_file(filename)?;
+                println!("Todo list saved. Goodbye!");
                 break;
-            },
-            None => println!("Invalid command"),
+            }
+            _ => println!("Invalid choice. Please try again."),
         }
     }
+
+    Ok(())
 }
