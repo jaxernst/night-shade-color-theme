@@ -2,11 +2,11 @@
 
 A minimal dark theme for late night coding sessions.
 
-<img src="https://raw.githubusercontent.com/jaxernst/night-shade-color-theme/main/snippet-ts.png?token=GHSAT0AAAAAACWPDY55H6XPEWS3NY4APDA6ZWNL4NQ">
+![TypeScript snippet](./snippet-ts.png)
 
-<img src="https://raw.githubusercontent.com/jaxernst/night-shade-color-theme/main/snippet-ex.png?token=GHSAT0AAAAAACWPDY54BETOPVMH7KLESNM4ZWNL3FQ">
+![Elixir snippet](./snippet-ex.png)
 
-<img src="https://raw.githubusercontent.com/jaxernst/night-shade-color-theme/main/snippet-rs.png?token=GHSAT0AAAAAACWPDY54NNFZETYLTJMWAF6GZWNL4XA">
+![Rust snippet](./snippet-rs.png)
 
 ## Feedback / Issues
 
