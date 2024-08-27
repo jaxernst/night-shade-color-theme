@@ -8,10 +8,18 @@ A minimal dark theme for late night coding sessions.
 
 ![Elixir snippet](https://i.imgur.com/ncmbwfp.png)
 
-## Feedback / Issues
+## Feedback or Issues?
 
-See anything that looks bad or just off? Feel free to take a screenshot and open an issue on github.
+If you have any issues or see something that looks off, feel free to take a screenshot and open an issue on github.
+
+I've tailored this for a few specific languages:
+* Typscript / Javascript
+* Elixir
+* Svelte
+* Solidity
+
+Languages not listed here could have highlighting ugliness (which I'll address if you open an issue!)
 
 ## Customization
 
-Override colors in your `settings.json` for personalization:
+Override with your own language specifc styling in your `settings.json` for personalization
