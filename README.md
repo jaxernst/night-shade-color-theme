@@ -2,11 +2,11 @@
 
 A minimal dark theme for late night coding sessions.
 
-<img src="./snippet-ts.svg">
+<img src="./snippet-ts.png">
 
-<img src="./snippet.ex.svg">
+<img src="./snippet-ex.png">
 
-<img src="./snippet-rs.svg">
+<img src="./snippet-rs.png">
 
 ## Feedback / Issues
 
